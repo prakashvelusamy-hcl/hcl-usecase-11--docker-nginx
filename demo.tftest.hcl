@@ -1,3 +1,20 @@
+test {
+  command = plan
+
+  assertions {
+    resource_changes {
+      type   = "aws_instance"
+      action = "create"
+
+      attribute_conditions {
+        key      = "tags.Name"
+        value    = "Public*"
+        operator = "contains"
+      }
+    }
+  }
+}
+
 # test "ec2_instance_exists" {
 #   command = plan
 
@@ -17,13 +34,13 @@
 # }
 
 
-test "ec2_instance_exists" {
-  command = plan
+# test "ec2_instance_exists" {
+#   command = plan
  
-  assertions {
-    resource_changes {
-      type   = "aws_instance"
-      action = "create"
-    }
-  }
-}
+#   assertions {
+#     resource_changes {
+#       type   = "aws_instance"
+#       action = "create"
+#     }
+#   }
+# }

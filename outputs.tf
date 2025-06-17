@@ -10,10 +10,6 @@ output "private_subnet_ids" {
   value = module.vpc.private_subnet_ids
 }
 
-output "nat_gateway_ids" {
-  value = module.vpc.nat_gateway_ids
-}
-
 output "internet_gateway_id" {
   value = module.vpc.internet_gateway_id
 }
@@ -24,9 +20,6 @@ output "instance_ids" {
 
 output "instance_public_ips" {
   value = module.ec2.public_instance_ips
-}
-output "alb_dns_name" {
-  value = module.alb.alb_dns_name
 }
 # output "test_user_data" {
 # value= module.ec2.test_user_data_content  

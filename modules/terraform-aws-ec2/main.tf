@@ -34,7 +34,7 @@ resource "aws_security_group" "ec2_sg" {
 resource "aws_instance" "public_instances" {
   count         = var.public_instance
   ami           = "ami-0e35ddab05955cf57"
-  instance_type = "t3.medium"
+  instance_type = "t2.medium"
   subnet_id     = var.public_subnet_ids[count.index]
   associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]

@@ -5,7 +5,7 @@ module "vpc" {
   pub_sub_count  = var.pub_sub_count
   priv_sub_count = var.priv_sub_count
   nat_count      = var.nat_count
-  project-name   = var.project_name
+  project_name   = var.project_name
   environment    = var.environment
 }
 module "ec2" {

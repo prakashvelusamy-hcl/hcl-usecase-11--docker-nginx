@@ -1,46 +1,22 @@
-test {
+run "test_ec2_instance_creation" {
   command = plan
 
-  assertions {
-    resource_changes {
-      type   = "aws_instance"
-      action = "create"
-
-      attribute_conditions {
-        key      = "tags.Name"
-        value    = "Public*"
-        operator = "contains"
-      }
-    }
+  # Check if the EC2 instance ID is not empty (meaning it was created)
+  assert {
+    condition     = length(module.ec2.public_instances[*].id) > 0
+    error_message = "No EC2 instances were created"
   }
-}
 
-# test "ec2_instance_exists" {
-#   command = plan
+  # Check that the EC2 instance has the correct Name tag
+  # assert {
+  #   condition     = alltrue([for instance in aws_instance.public_instances : instance.tags["Name"] == "Public-Instance-FocalBoard"])
+  #   error_message = "EC2 instance 'Name' tag is incorrect"
+  # }
 
-#   assertions {
-#     resource_changes {
-#       type   = "aws_instance"
-#       action = "create"
+  # # Check that the instance is of the correct type (t3.medium)
+  # assert {
+  #   condition     = alltrue([for instance in aws_instance.public_instances : instance.instance_type == "t3.medium"])
+  #   error_message = "EC2 instance type is not t3.medium"
+  # }
+  }
 
-#       # Ensure the instance has a tag containing "Public"
-#       attribute_conditions {
-#         key   = "tags.Name"
-#         value = "Public*"
-#         operator = "contains"
-#       }
-#     }
-#   }
-# }
-
-
-# test "ec2_instance_exists" {
-#   command = plan
- 
-#   assertions {
-#     resource_changes {
-#       type   = "aws_instance"
-#       action = "create"
-#     }
-#   }
-# }

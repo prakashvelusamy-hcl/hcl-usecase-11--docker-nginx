@@ -40,17 +40,26 @@ resource "aws_instance" "public_instances" {
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
   
  # user_data = local.user_data_files[0]
-  user_data = <<-EOF
-                #!/bin/bash
-                sudo apt update -y
-                sudo apt-get install -y docker.io
-                sudo systemctl start docker
-                sudo systemctl enable docker
-                usermod -aG docker ubuntu
-                docker run -d -p 8000:8000 mattermost/focalboard
-                EOF
+user_data = <<-EOF
+#!/bin/bash
+# Update and install Docker
+sudo apt update -y
+sudo apt-get install -y docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# Install Nginx
+sudo apt-get install -y nginx
+sudo systemctl start nginx
+sudo systemctl enable nginx
+
+# Create custom index.html
+sudo echo "This is my 11th use case" > /var/www/html/index.html
+sudo systemctl restart nginx
+EOF
+
   tags = {
-    Name = "Public-Instance-FocalBoard"
+    Name = "Public-Instance"
   }
 }
 

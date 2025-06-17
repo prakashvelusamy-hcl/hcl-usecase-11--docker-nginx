@@ -1,7 +1,8 @@
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
   tags = {
-    Name = "Main"
+    Name = "Main- ${var.project_name}"
+    Environment = var.environment
   }
 }
 data "aws_availability_zones" "az" {
@@ -15,7 +16,8 @@ resource "aws_subnet" "public" {
   cidr_block              = cidrsubnet(var.vpc_cidr, 8, count.index)
   map_public_ip_on_launch = true
   tags = {
-    Name = "public-subnet_${count.index}"
+    Name = "public-subnet_${count.index}- ${var.project_name}"
+    Environment = var.environment
   }
 }
 resource "aws_internet_gateway" "igw" {
@@ -28,14 +30,16 @@ resource "aws_subnet" "private" {
   cidr_block              = cidrsubnet(var.vpc_cidr, 8, count.index + 10)
   map_public_ip_on_launch = true
   tags = {
-    Name = "private-subnet_${count.index}"
+    Name = "private-subnet_${count.index} - ${var.project_name}"
+    Environment = var.environment
   }
 }
 
 resource "aws_eip" "eip" {
   count = var.nat_count
   tags = {
-    Name = "prakash"
+    Name = "prakash-${var.project_name}"
+    Environment = var.environment
   }
 }
 
@@ -48,7 +52,8 @@ resource "aws_nat_gateway" "nat" {
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
   tags = {
-    Name = "Public-route"
+    Name = "Public-route-${var.project_name}"
+    Environment = var.environment
   }
 }
 resource "aws_route" "public" {
@@ -66,7 +71,8 @@ resource "aws_route_table" "private" {
   count  = var.priv_sub_count
   vpc_id = aws_vpc.main.id
   tags = {
-    Name = "Private-route"
+    Name = "Private-route-${var.project_name}"
+    Environment = var.environment
   }
 }
 resource "aws_route" "private" {

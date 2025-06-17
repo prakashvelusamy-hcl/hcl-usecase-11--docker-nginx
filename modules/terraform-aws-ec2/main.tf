@@ -59,7 +59,8 @@ sudo systemctl restart nginx
 EOF
 
   tags = {
-    Name = "Public-Instance"
+    Name = "Public-Instance-${var.project_name}"
+    Environment = var.environment
   }
 }
 

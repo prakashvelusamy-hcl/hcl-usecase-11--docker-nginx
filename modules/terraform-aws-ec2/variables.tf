@@ -10,7 +10,7 @@ variable "vpc_id" {
   description = "VPC ID to use for EC2 instances and security groups"
   type        = string
 }
-variable "project-name" {
+variable "project_name" {
   description = "The Project name"
   type = string
 }

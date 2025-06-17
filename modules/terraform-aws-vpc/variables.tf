@@ -2,7 +2,7 @@ variable "vpc_cidr" {
   description = "CIDR block for the VPC"
   type        = string
 }
-variable "project-name" {
+variable "project_name" {
   description = "The Project name"
   type = string
 }

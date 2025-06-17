@@ -20,4 +20,11 @@ variable "public_instance" {
   description = "Number of public EC2 instances to create"
   type        = number
 }
-
+variable "project_name" {
+  description = "The Project name"
+  type = string
+}
+variable "environment" {
+description = "The environment name"
+type = string
+}
